@@ -1,11 +1,18 @@
-import eyes 
+import monitor 
+import time
+
+RESOURCES_PATH = 'resources/'
 
 
 def main():
-    test = eyes.Eyes()
-    test.shot()
-
+    mon = monitor.Monitor()
     print("Start")
+
+    while True:
+        print(mon.grab_coord())
+        time.sleep(.10)
+
+        
 
 
 
