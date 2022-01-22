@@ -42,8 +42,8 @@ class Actor():
         while True:
             degree = self.position.get_target_orientation(np.array([x, y]))
             diff_angle = self.position.diff_angle(degree)
-            self.camera.rotate(speed=2, deg=diff_angle)
-            await asyncio.sleep(0.8)
+            self.camera.rotate(speed=3, deg=diff_angle)
+            await asyncio.sleep(0.6)
 
     async def _goto(self, x, y):
         task1 = asyncio.create_task(self.check_coord(x,y))
@@ -119,6 +119,13 @@ class Position():
     
     def diff_angle(self, new_angle) -> float:
         angle = new_angle - self.get_self_orientation()
+        
+        if angle > 180:
+            angle = (angle - 180) / -1
+        elif angle < -180:
+            angle = abs(angle + 180)
+        #print(angle)
+
         return angle
 
     def get_target_orientation(self, target) -> float:
